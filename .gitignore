@@ -4,6 +4,7 @@ target
 .idea
 # Log file
 *.log
+*.yml
 
 # BlueJ files
 *.ctxt
