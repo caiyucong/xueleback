@@ -1,0 +1,16 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: service-oss
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.100:8848
+      config:
+        ext-config:
+          - data-id: qcloud-sdk.yml
+            refresh: true
+        server-addr: 192.168.1.100

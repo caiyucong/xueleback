@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caiyucong.eduservice.mapper.CourseMapper">
+    <delete id="removeById" parameterType="string">
+        delete
+        from edu_course
+        where id = #{id}
+    </delete>
+
+    <select id="selectPublishContent" parameterType="java.lang.String"
+            resultType="com.caiyucong.eduservice.domain.vo.PublishVo">
+        select c.title,
+               t.name       `teacher`,
+               c.lesson_num `lessonNum`,
+               sp.title     `subjectParent`,
+               s.title      `subject`,
+               c.price,
+               c.cover
+        from `edu_course` c
+                 left join `edu_teacher` t on t.id = c.teacher_id
+                 left join `edu_subject` s on c.subject_id = s.id
+                 left join `edu_subject` sp on c.subject_parent_id = sp.id
+        WHERE c.id = #{id}
+          and c.is_deleted = 0
+    </select>
+
+    <resultMap id="baseMap" type="com.caiyucong.eduservice.domain.vo.CourseWebVo">
+        <id column="id" property="id" javaType="java.lang.String"/>
+        <result property="title" column="title" javaType="java.lang.String"/>
+        <result property="buyCount" column="buy_count" javaType="java.lang.Long"/>
+        <result property="cover" column="cover" javaType="java.lang.String"/>
+        <result property="description" column="description" javaType="java.lang.String"/>
+        <result property="lessonNum" column="lesson_num" javaType="java.lang.Integer"/>
+        <result property="viewCount" column="view_count" javaType="java.lang.Long"/>
+        <association property="teacher" javaType="com.caiyucong.eduservice.domain.Teacher"
+                     column="teacher_id" select="com.caiyucong.eduservice.mapper.TeacherMapper.selectById"/>
+        <collection property="chapters" ofType="com.caiyucong.eduservice.domain.vo.ChapterVo"
+                    column="id" select="com.caiyucong.eduservice.mapper.ChapterMapper.selectChapterAndVideo"/>
+    </resultMap>
+
+    <select id="selectCourseContent" parameterType="java.lang.String"
+            resultMap="baseMap">
+        SELECT c.id,
+               c.teacher_id,
+               c.title,
+               c.price,
+               c.lesson_num,
+               c.cover,
+               c.buy_count,
+               c.view_count,
+               d.description
+        FROM `edu_course` c
+                 LEFT JOIN `edu_course_description` d on c.id = d.id
+        where c.id = #{id}
+    </select>
+
+</mapper>

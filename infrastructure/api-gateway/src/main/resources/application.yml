@@ -1,0 +1,47 @@
+server:
+  port: 9520
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.100:8848
+    gateway:
+      routes:
+        - id: eduservice
+          uri: lb://service-edu
+          predicates:
+            - Path=/eduservice/**
+        - id: eduoss
+          uri: lb://service-oss
+          predicates:
+            - Path=/eduoss/**
+        - id: eduvod
+          uri: lb://service-vod
+          predicates:
+            - Path=/eduvod/**
+        - id: crmservice
+          uri: lb://service-crm
+          predicates:
+            - Path=/crmservice/**
+        - id: smsservice
+          uri: lb://service-sms
+          predicates:
+            - Path=/smsservice/**
+        - id: uncenterservice
+          uri: lb://service-uncenter
+          predicates:
+            - Path=/uncenterservice/**
+        - id: orderservice
+          uri: lb://service-order
+          predicates:
+            - Path=/orderservice/**
+        - id: statisticsservice
+          uri: lb://service-statistics
+          predicates:
+            - Path=/statisticsservice/**
+        - id: aclservice
+          uri: lb://service-acl
+          predicates:
+            - Path=/*/acl/**

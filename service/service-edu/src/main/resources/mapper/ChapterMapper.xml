@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caiyucong.eduservice.mapper.ChapterMapper">
+
+    <resultMap id="baseMap" type="com.caiyucong.eduservice.domain.vo.ChapterVo">
+        <id property="id" javaType="java.lang.String" column="id"/>
+        <result property="title" javaType="java.lang.String" column="title"/>
+        <collection property="videos" ofType="com.caiyucong.eduservice.domain.Video"
+                    column="id" select="com.caiyucong.eduservice.mapper.VideoMapper.selectVideoByChapterId" />
+    </resultMap>
+
+    <select id="selectChapterAndVideo" parameterType="string" resultMap="baseMap">
+        select title, id
+        from edu_chapter
+        where course_id = #{value}
+        order by sort
+    </select>
+</mapper>

@@ -1,0 +1,25 @@
+server:
+  port: 8160
+spring:
+  application:
+    name: service-uncenter
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.100
+      config:
+        server-addr: 192.168.1.100
+        ext-config:
+          - data-id: wxpay-sdk.yml
+            refresh: true
+          - data-id: mysql-datasource.yml
+            refresh: true
+          - data-id: redis-host.yml
+            refresh: true
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,0 +1,25 @@
+server:
+  port: 8099
+spring:
+  application:
+    name: service-crm
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.1.100:3306/cyc_edu?serverTimezone=GMT%2B8
+    username: root
+    password: 123
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.100:8848
+  redis:
+    host: 192.168.1.100
+    timeout: 1800000
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**/*.xml

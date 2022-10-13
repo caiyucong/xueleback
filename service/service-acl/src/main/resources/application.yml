@@ -1,0 +1,30 @@
+server:
+  port: 8156
+spring:
+  application:
+    name: service-acl
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.100
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.1.100:3306/cyc_edu?serverTimezone=GMT%2B8
+    username: root
+    password: 123
+    type: com.zaxxer.hikari.HikariDataSource
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  redis:
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 5
+        min-idle: 0
+    host: 192.168.1.100
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath*:mapper/**/*.xml

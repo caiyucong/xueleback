@@ -1,0 +1,20 @@
+server:
+  port: 8045
+spring:
+  application:
+    name: service-sms
+  redis:
+    timeout: 1800000
+    host: 192.168.1.100
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.1.100
+      config:
+        ext-config:
+          - data-id: qcloud-sdk.yml
+            refresh: true
+        server-addr: 192.168.1.100
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8

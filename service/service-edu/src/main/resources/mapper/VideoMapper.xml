@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caiyucong.eduservice.mapper.VideoMapper">
+
+    <select id="selectVideoByChapterId" resultType="com.caiyucong.eduservice.domain.vo.VideoVo" parameterType="string">
+        select id,title,video_source_id from edu_video where chapter_id = #{id}
+    </select>
+    
+</mapper>
