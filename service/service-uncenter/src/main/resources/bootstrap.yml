@@ -3,6 +3,14 @@ server:
 spring:
   application:
     name: service-uncenter
+  redis:
+    host: 192.168.1.100
+  datasource:
+    password: 123
+    username: root
+    url: jdbc:mysql://192.168.1.100:3306/cyc_edu?serverTimezone=GMT%2B8
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
   cloud:
     nacos:
       discovery:
@@ -11,10 +19,6 @@ spring:
         server-addr: 192.168.1.100
         ext-config:
           - data-id: wxpay-sdk.yml
-            refresh: true
-          - data-id: mysql-datasource.yml
-            refresh: true
-          - data-id: redis-host.yml
             refresh: true
   jackson:
     time-zone: GMT+8
