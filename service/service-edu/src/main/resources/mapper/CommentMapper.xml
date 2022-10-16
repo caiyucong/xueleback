@@ -2,4 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.caiyucong.eduservice.mapper.CommentMapper">
 
+    <resultMap id="BaseResultMap" type="com.caiyucong.eduservice.domain.vo.CommentInfoVo" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="nickName" property="nickName" jdbcType="VARCHAR" />
+        <result column="courseTitle" property="courseTitle" jdbcType="VARCHAR" />
+        <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <!-- 分页查询 -->
+    <select id="getCommentPageList" parameterType="com.caiyucong.eduservice.domain.vo.CommentQuery" resultMap="BaseResultMap">
+        select ec.id,ec.nickname,eco.title courseTitle,et.`name` teacherName,ec.content,ec.gmt_create,ec.is_deleted
+        from edu_comment ec,edu_teacher et,edu_course eco
+        where ec.teacher_id = et.id and ec.course_id = eco.id and ec.is_deleted = 0
+        <if test="''!=commentQuery.nickname and null!=commentQuery.nickname">
+            and ec.nickname like'%${commentQuery.nickname}%'
+        </if>
+        <if test="''!=commentQuery.teacherId and null!=commentQuery.teacherId">
+            and ec.teacher_id = #{commentQuery.teacherId}
+        </if>
+        <if test="''!=commentQuery.courseId and null!=commentQuery.courseId">
+            and ec.course_id = #{commentQuery.courseId}
+        </if>
+        <if test="commentQuery.begin!=null">
+            and ec.gmt_create &gt;= #{commentQuery.begin}
+        </if>
+        <if test="commentQuery.end!=null">
+            and ec.gmt_create &lt;= #{commentQuery.end}
+        </if>
+        order by gmt_create desc
+    </select>
+
 </mapper>

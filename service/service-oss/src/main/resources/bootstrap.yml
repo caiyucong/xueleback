@@ -8,9 +8,9 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.1.100:8848
+        server-addr: 127.0.0.1:8848
       config:
         ext-config:
           - data-id: qcloud-sdk.yml
             refresh: true
-        server-addr: 192.168.1.100
+        server-addr: 127.0.0.1
